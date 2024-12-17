@@ -5,7 +5,8 @@ import { PRODUCT_NUMBERS_TOP_10 } from "./data";
 import fs from "fs/promises";
 import path from "path";
 import { createProductText } from "~/inngest/product-embeddings-sync/create-product-text";
-import { generateEmbedding } from "~/inngest/product-embeddings-sync/generate-embedding";
+import { generateEmbeddingAzure } from "~/inngest/product-embeddings-sync/generate-embedding-azure";
+
 import { upsertEmbedding } from "~/inngest/product-embeddings-sync/upsert-embedding";
 
 const storeToJsonFile = async (data: any, filename: string) => {
@@ -30,7 +31,7 @@ const seed = async () => {
       console.log("stored", productNumber);
       const productText = await createProductText(productData);
       console.log("produced text", productNumber);
-      const embedding = await generateEmbedding(productText);
+      const embedding = await generateEmbeddingAzure(productText);
       console.log("produced embedding", productNumber);
       await upsertEmbedding({ productNumber, productText, embedding });
       console.log("upserted embedding", productNumber);

@@ -4,7 +4,7 @@ import {
   syncProductEmbeddingsSchema,
 } from "../client";
 import { createProductText } from "./create-product-text";
-import { generateEmbedding } from "./generate-embedding";
+import { generateEmbeddingAzure } from "./generate-embedding-azure";
 import { getEfoProductData } from "./get-efo-product-data";
 import { upsertEmbedding } from "./upsert-embedding";
 
@@ -43,7 +43,7 @@ export const syncProductEmbeddings = inngest.createFunction(
     // 2. use the product text to generate and upsert embeddings
     await step.run("Upsert embeddings", async () => {
       // TODO: a. generate embeddings
-      const embedding = await generateEmbedding(productText);
+      const embedding = await generateEmbeddingAzure(productText);
       // TODO: b. upsert embeddings to Neon with pgvector
       await upsertEmbedding({ productNumber, productText, embedding });
     });

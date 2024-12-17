@@ -1,11 +1,11 @@
-import { generateEmbedding } from "~/inngest/product-embeddings-sync/generate-embedding";
+import { generateEmbeddingAzure } from "~/inngest/product-embeddings-sync/generate-embedding-azure";
 import { queryProducts } from "~/lib/queries";
 
-const INPUT = "Jeg trenger stripps som tåler kulde";
+const PROMPT = "Jeg trenger stripps som tåler kulde";
 
 const main = async () => {
   const beforeEmbedding = performance.now();
-  const embeddedQuery = await generateEmbedding(INPUT);
+  const embeddedQuery = await generateEmbeddingAzure(PROMPT);
   console.log(`time embedding: ${performance.now() - beforeEmbedding} ms`);
 
   const beforeQuery = performance.now();
