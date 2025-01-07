@@ -13,7 +13,9 @@ export default function Page() {
     isLoading,
     stop,
     reload,
-  } = useChat({});
+  } = useChat({
+    maxSteps: 3,
+  });
 
   const handleStop = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -58,7 +60,15 @@ export default function Page() {
                   {message.role === "user" ? "You" : "Proffen AI"}
                 </div>
                 <div className="text-sm whitespace-pre-wrap">
-                  {message.content}
+                  <p>
+                    {message.content.length > 0 ? (
+                      message.content
+                    ) : (
+                      <span className="italic font-light">
+                        {"Søker etter produkter... Venligst vent"}
+                      </span>
+                    )}
+                  </p>
                 </div>
               </div>
             </div>
