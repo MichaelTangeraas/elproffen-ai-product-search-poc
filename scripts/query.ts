@@ -1,7 +1,7 @@
 import { generateEmbeddingAzure } from "~/inngest/product-embeddings-sync/generate-embedding-azure";
 import { queryProducts } from "~/lib/queries";
 
-const PROMPT = "Jeg trenger stripps som tåler kulde";
+const PROMPT = "Jeg trenger strips sort";
 
 const main = async () => {
   const beforeEmbedding = performance.now();

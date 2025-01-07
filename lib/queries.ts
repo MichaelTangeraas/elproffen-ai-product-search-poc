@@ -11,6 +11,7 @@ export const queryProducts = async (embeddedQuery: number[]) => {
   return db
     .select({
       productNumber: productEmbedding.productNumber,
+      content: productEmbedding.content,
       similarity,
     })
     .from(productEmbedding)

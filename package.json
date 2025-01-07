@@ -11,6 +11,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "chat": "pnpm with-env tsx scripts/chat.ts",
     "query": "pnpm with-env tsx scripts/query.ts",
     "db:seed": "pnpm with-env tsx db/seed/index.ts",
     "db:push": "pnpm with-env drizzle-kit push",
