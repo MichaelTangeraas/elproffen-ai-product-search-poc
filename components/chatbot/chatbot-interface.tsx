@@ -3,6 +3,22 @@
 import { useChat } from "ai/react";
 import { StopButton } from "./stop-button";
 import { RegenerateButton } from "./regenerate-button";
+import { ProductCard } from "./ProductCard";
+
+interface ProductResponse {
+  type: "products";
+  products: {
+    productNumber: string;
+    productName: string;
+    manufacturer: string;
+    technicalDescription: string;
+  }[];
+}
+
+interface MessageResponse {
+  type: "message";
+  content: string;
+}
 
 export default function Page() {
   const {
@@ -27,6 +43,38 @@ export default function Page() {
     reload();
   };
 
+  const renderMessageContent = (
+    content: string,
+    role: "user" | "assistant" | "system" | "data"
+  ) => {
+    try {
+      const parsedContent = JSON.parse(content) as
+        | ProductResponse
+        | MessageResponse;
+
+      if (parsedContent.type === "products") {
+        return (
+          <div className="w-full space-y-4 mt-2">
+            <p className="text-sm text-gray-600">
+              Here are the products I found:
+            </p>
+            {parsedContent.products.map((product, index) => (
+              <ProductCard
+                key={`${product.productNumber}-${index}`}
+                {...product}
+              />
+            ))}
+          </div>
+        );
+      }
+
+      return <p className="whitespace-pre-wrap">{parsedContent.content}</p>;
+    } catch (e) {
+      // Fallback for non-JSON messages
+      return <p className="whitespace-pre-wrap">{content}</p>;
+    }
+  };
+
   return (
     <div className="flex justify-center w-full bg-gray-100 min-h-screen">
       <div className="flex flex-col h-[calc(100vh-2rem)] w-[768px] min-h-[600px] my-4 p-4 bg-gray-50 rounded-xl shadow-md">
@@ -47,28 +95,26 @@ export default function Page() {
               key={message.id}
               className={`flex ${
                 message.role === "user" ? "justify-end" : "justify-start"
-              }`}
+              } w-full`}
             >
               <div
-                className={`max-w-[80%] rounded-lg px-4 py-2 ${
+                className={`${
                   message.role === "user"
-                    ? "bg-blue-600 text-white"
-                    : "bg-gray-100 text-gray-800"
-                }`}
+                    ? "bg-blue-600 text-white max-w-[80%]"
+                    : "bg-gray-100 text-gray-800 w-full"
+                } rounded-lg px-4 py-2`}
               >
                 <div className="text-sm font-medium mb-1">
                   {message.role === "user" ? "You" : "Proffen AI"}
                 </div>
-                <div className="text-sm whitespace-pre-wrap">
-                  <p>
-                    {message.content.length > 0 ? (
-                      message.content
-                    ) : (
-                      <span className="italic font-light">
-                        {"Søker etter produkter... Venligst vent"}
-                      </span>
-                    )}
-                  </p>
+                <div className="text-sm">
+                  {message.content.length > 0 ? (
+                    renderMessageContent(message.content, message.role)
+                  ) : (
+                    <span className="italic font-light">
+                      {"Søker etter produkter... Venligst vent"}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>

@@ -2,7 +2,7 @@ import { azure } from "@ai-sdk/azure";
 import { streamText, tool } from "ai";
 import { z } from "zod";
 
-import { conductSemanticSearch } from "~/lib/conduct-semantic-search";
+import { findRelevantProduct } from "~/lib/find-relevant-product";
 import { systemPrompt } from "~/lib/system-prompt";
 
 export async function POST(req: Request) {
@@ -16,12 +16,12 @@ export async function POST(req: Request) {
     tools: {
       searchForProducts: tool({
         description:
-          "If the user asks a question about a product, search for the product and return the product details.",
+          "If the user asks a question about a product, search for the product and return the product details in a structured format with fields: productNumber, productName, and technicalDescription.",
         parameters: z.object({
           question: z.string().describe("The question the user asked"),
         }),
         execute: async ({ question }) => {
-          const products = await conductSemanticSearch(question);
+          const products = await findRelevantProduct(question);
           return products;
         },
       }),
