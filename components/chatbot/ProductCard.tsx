@@ -18,21 +18,21 @@ export function ProductCard({
       </h3>
       <div className="space-y-2">
         <div>
-          <span className="font-medium text-gray-600">Product Number: </span>
+          <span className="font-medium text-gray-600">Produktnummer: </span>
           <span className="text-gray-800">{productNumber}</span>
         </div>
         <div>
-          <span className="font-medium text-gray-600">Manufacturer: </span>
+          <span className="font-medium text-gray-600">Produsent: </span>
           <span className="text-gray-800">{manufacturer}</span>
         </div>
         <div>
           <span className="font-medium text-gray-600">
-            Technical Description:{" "}
+            Teknisk beskrivelse:{" "}
           </span>
           <p className="text-gray-800 mt-1 text-sm">{technicalDescription}</p>
         </div>
         <button className="mt-4 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors w-full">
-          Add to Cart
+          Legg til i handlekurv
         </button>
       </div>
     </div>

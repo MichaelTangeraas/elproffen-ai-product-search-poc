@@ -1,9 +1,8 @@
 import { azure } from "@ai-sdk/azure";
-import { streamText, tool } from "ai";
-import { z } from "zod";
+import { streamText } from "ai";
 
-import { findRelevantProduct } from "~/lib/find-relevant-product";
-import { systemPrompt } from "~/lib/system-prompt";
+import { searchForProducts, weatherTool } from "~/lib/ai/tools";
+import { systemPrompt } from "~/lib/ai/system-prompt";
 
 export async function POST(req: Request) {
   const { messages } = await req.json();
@@ -13,18 +12,10 @@ export async function POST(req: Request) {
     system: systemPrompt,
     temperature: 0.7,
     messages,
+    maxSteps: 1,
     tools: {
-      searchForProducts: tool({
-        description:
-          "If the user asks a question about a product, search for the product and return the product details in a structured format with fields: productNumber, productName, and technicalDescription.",
-        parameters: z.object({
-          question: z.string().describe("The question the user asked"),
-        }),
-        execute: async ({ question }) => {
-          const products = await findRelevantProduct(question);
-          return products;
-        },
-      }),
+      searchForProducts,
+      weatherTool,
     },
   });
 

@@ -3,23 +3,8 @@
 import { useChat } from "ai/react";
 import { StopButton } from "./stop-button";
 import { RegenerateButton } from "./regenerate-button";
+import { Weather } from "~/lib/ai/tools/display-weather/weather";
 import { ProductCard } from "./ProductCard";
-
-interface ProductResponse {
-  type: "products";
-  products: {
-    productNumber: string;
-    productName: string;
-    manufacturer: string;
-    technicalDescription: string;
-  }[];
-}
-
-interface MessageResponse {
-  type: "message";
-  content: string;
-}
-
 export default function Page() {
   const {
     messages,
@@ -30,7 +15,7 @@ export default function Page() {
     stop,
     reload,
   } = useChat({
-    maxSteps: 3,
+    maxSteps: 1,
   });
 
   const handleStop = (e: React.MouseEvent) => {
@@ -41,38 +26,6 @@ export default function Page() {
   const handleRegenerate = (e: React.MouseEvent) => {
     e.preventDefault();
     reload();
-  };
-
-  const renderMessageContent = (
-    content: string,
-    role: "user" | "assistant" | "system" | "data"
-  ) => {
-    try {
-      const parsedContent = JSON.parse(content) as
-        | ProductResponse
-        | MessageResponse;
-
-      if (parsedContent.type === "products") {
-        return (
-          <div className="w-full space-y-4 mt-2">
-            <p className="text-sm text-gray-600">
-              Here are the products I found:
-            </p>
-            {parsedContent.products.map((product, index) => (
-              <ProductCard
-                key={`${product.productNumber}-${index}`}
-                {...product}
-              />
-            ))}
-          </div>
-        );
-      }
-
-      return <p className="whitespace-pre-wrap">{parsedContent.content}</p>;
-    } catch (e) {
-      // Fallback for non-JSON messages
-      return <p className="whitespace-pre-wrap">{content}</p>;
-    }
   };
 
   return (
@@ -95,26 +48,72 @@ export default function Page() {
               key={message.id}
               className={`flex ${
                 message.role === "user" ? "justify-end" : "justify-start"
-              } w-full`}
+              }`}
             >
               <div
-                className={`${
+                className={`max-w-[80%] rounded-lg px-4 py-2 ${
                   message.role === "user"
-                    ? "bg-blue-600 text-white max-w-[80%]"
-                    : "bg-gray-100 text-gray-800 w-full"
-                } rounded-lg px-4 py-2`}
+                    ? "bg-blue-600 text-white"
+                    : "bg-gray-100 text-gray-800"
+                }`}
               >
                 <div className="text-sm font-medium mb-1">
-                  {message.role === "user" ? "You" : "Proffen AI"}
+                  {message.role === "user" ? "Bruker" : "Proffen AI"}
                 </div>
-                <div className="text-sm">
-                  {message.content.length > 0 ? (
-                    renderMessageContent(message.content, message.role)
-                  ) : (
-                    <span className="italic font-light">
-                      {"Søker etter produkter... Venligst vent"}
-                    </span>
-                  )}
+                <div className="text-sm whitespace-pre-wrap">
+                  <div>{message.content}</div>
+
+                  <div>
+                    {message.toolInvocations?.map((toolInvocation) => {
+                      const { toolName, toolCallId, state } = toolInvocation;
+
+                      if (state === "result") {
+                        if (toolName === "weatherTool") {
+                          const { result } = toolInvocation;
+                          return (
+                            <div key={toolCallId}>
+                              <Weather {...result} />
+                            </div>
+                          );
+                        }
+                        if (toolName === "searchForProducts") {
+                          const { result } = toolInvocation;
+                          return (
+                            <div key={toolCallId}>
+                              {Array.isArray(result) ? (
+                                <div className="space-y-4">
+                                  {result.length === 0 ? (
+                                    <p>Ingen produkter funnet</p>
+                                  ) : (
+                                    result.map((product) => (
+                                      <ProductCard
+                                        key={product.productNumber}
+                                        {...product}
+                                      />
+                                    ))
+                                  )}
+                                </div>
+                              ) : (
+                                <ProductCard {...result} />
+                              )}
+                            </div>
+                          );
+                        }
+                      } else {
+                        return (
+                          <div key={toolCallId}>
+                            {toolName === "weatherTool" ? (
+                              <span>Laster inn værdata...</span>
+                            ) : toolName === "searchForProducts" ? (
+                              <span>Laster inn produkt...</span>
+                            ) : (
+                              <span>Laster inn data...</span>
+                            )}
+                          </div>
+                        );
+                      }
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
