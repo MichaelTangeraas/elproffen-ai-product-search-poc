@@ -5,6 +5,8 @@ import { StopButton } from "./stop-button";
 import { RegenerateButton } from "./regenerate-button";
 import { Weather } from "~/lib/ai/tools/display-weather/weather";
 import { ProductCard } from "./ProductCard";
+import { MemoizedMarkdown } from "./memoized-markdown";
+
 export default function Page() {
   const {
     messages,
@@ -16,6 +18,7 @@ export default function Page() {
     reload,
   } = useChat({
     maxSteps: 1,
+    experimental_throttle: 50,
   });
 
   const handleStop = (e: React.MouseEvent) => {
@@ -57,11 +60,20 @@ export default function Page() {
                     : "bg-gray-100 text-gray-800"
                 }`}
               >
-                <div className="text-sm font-medium mb-1">
+                <div className="text-sm font-bold mb-1">
                   {message.role === "user" ? "Bruker" : "Proffen AI"}
                 </div>
-                <div className="text-sm whitespace-pre-wrap">
-                  <div>{message.content}</div>
+                <div className="text-sm whitespace-normal">
+                  <div
+                    className={`prose ${
+                      message.role === "user" ? "text-white" : "text-gray-800"
+                    }`}
+                  >
+                    <MemoizedMarkdown
+                      id={message.id}
+                      content={message.content}
+                    />
+                  </div>
 
                   <div>
                     {message.toolInvocations?.map((toolInvocation) => {
