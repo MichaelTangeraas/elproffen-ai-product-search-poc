@@ -11,7 +11,10 @@ export const queryProducts = async (embeddedQuery: number[]) => {
   return db
     .select({
       productNumber: productEmbedding.productNumber,
-      content: productEmbedding.content,
+      productName: productEmbedding.productName,
+      manufacturerName: productEmbedding.manufacturerName,
+      technicalDescription: productEmbedding.technicalDescription,
+      rawContent: productEmbedding.rawContent,
       similarity,
     })
     .from(productEmbedding)

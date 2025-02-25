@@ -7,6 +7,7 @@ import { createProductText } from "./create-product-text";
 import { generateEmbeddingAzure } from "./generate-embedding-azure";
 import { getEfoProductData } from "./get-efo-product-data";
 import { upsertEmbedding } from "./upsert-embedding";
+import generateProductSchema from "~/lib/generate-product-schema";
 
 export const syncProductEmbeddingsMultiple = inngest.createFunction(
   { id: "sync-product-embeddings-multiple" },
@@ -40,12 +41,36 @@ export const syncProductEmbeddings = inngest.createFunction(
       return createProductText(productData);
     });
 
-    // 2. use the product text to generate and upsert embeddings
+    // 2. generate a product schema from the product text
+    const productSchema = await step.run(
+      "Generate product schema",
+      async () => {
+        return generateProductSchema(productText);
+      }
+    );
+
+    // 3. use the product text to generate and upsert embeddings
     await step.run("Upsert embeddings", async () => {
       // TODO: a. generate embeddings
       const embedding = await generateEmbeddingAzure(productText);
-      // TODO: b. upsert embeddings to Neon with pgvector
-      await upsertEmbedding({ productNumber, productText, embedding });
+
+      // TODO: b. check if the product number matches
+      if (productSchema.productNumber !== productNumber) {
+        console.warn(
+          `Product number mismatch: expected ${productNumber}, got ${productSchema.productNumber}`
+        );
+        return;
+      }
+
+      // TODO: c. upsert embeddings to Neon with pgvector
+      await upsertEmbedding({
+        productNumber: productNumber,
+        productName: productSchema.productName,
+        manufacturerName: productSchema.manufacturer,
+        technicalDescription: productSchema.technicalDescription,
+        rawContent: productText,
+        embedding,
+      });
     });
   }
 );

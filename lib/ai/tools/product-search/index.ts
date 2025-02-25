@@ -1,7 +1,6 @@
 import { tool as createTool } from "ai";
 import { z } from "zod";
 import { findRelevantProduct } from "~/lib/find-relevant-product";
-import generateProductSchema from "~/lib/generate-product-schema";
 
 export const searchForProducts = createTool({
   description:
@@ -11,8 +10,7 @@ export const searchForProducts = createTool({
   }),
   execute: async ({ question }) => {
     const products = await findRelevantProduct(question);
-    const productSchema = await generateProductSchema(products);
-    console.log(productSchema);
-    return productSchema;
+    console.log(products);
+    return products;
   },
 });

@@ -5,9 +5,12 @@ export const productEmbedding = pgTable(
   {
     id: integer("id").primaryKey().generatedByDefaultAsIdentity(),
     productNumber: text("product_number").notNull().unique(), // EFO product number / ID
-    content: text("content").notNull(),
+    productName: text("product_name").notNull(),
+    manufacturerName: text("manufacturer_name").notNull(),
+    technicalDescription: text("technical_description").notNull(),
+    rawContent: text("raw_content").notNull(),
     embedding: vector("embedding", { dimensions: 1536 }).notNull(),
-    productId: integer("product_id"), // Product ID from PlanetScale DB, ignore for now...
+    productId: integer("product_id"),
   },
   (table) => [index().using("hnsw", table.embedding.op("vector_cosine_ops"))]
 );

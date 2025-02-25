@@ -4,18 +4,27 @@ import { ProductEmbeddingInsert } from "~/db/types";
 
 type UpsertEmbeddingParams = {
   productNumber: string;
-  productText: string;
+  productName: string;
+  manufacturerName: string;
+  technicalDescription: string;
+  rawContent: string;
   embedding: number[];
 };
 
 export const upsertEmbedding = async ({
   productNumber,
-  productText,
+  productName,
+  manufacturerName,
+  technicalDescription,
+  rawContent,
   embedding,
 }: UpsertEmbeddingParams) => {
   const newProductEmbedding = {
     productNumber,
-    content: productText,
+    productName,
+    manufacturerName,
+    technicalDescription,
+    rawContent,
     embedding,
   } satisfies ProductEmbeddingInsert;
 
