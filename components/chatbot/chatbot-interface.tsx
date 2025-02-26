@@ -65,9 +65,9 @@ export default function Page() {
                 </div>
                 <div className="text-sm whitespace-normal">
                   <div
-                    className={`prose ${
+                    className={`prose prose-base max-w-none ${
                       message.role === "user" ? "text-white" : "text-gray-800"
-                    }`}
+                    } prose-headings:mt-3 prose-headings:mb-1 prose-p:my-1 prose-li:my-0.5 prose-ul:my-1 prose-ol:my-1`}
                   >
                     <MemoizedMarkdown
                       id={message.id}

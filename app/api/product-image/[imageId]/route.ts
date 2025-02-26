@@ -14,7 +14,8 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { imageId: string } }
 ) {
-  const { imageId } = params;
+  // Await the params object before destructuring
+  const imageId = await params.imageId;
 
   if (!imageId) {
     return new NextResponse("Image ID is required", { status: 400 });

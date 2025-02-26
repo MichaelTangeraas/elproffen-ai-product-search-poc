@@ -3,8 +3,8 @@ import { embed, embedMany } from "ai";
 
 // This azure resource is for the US region to gain access to the embedding-small model
 const azureClient = createAzure({
-  apiKey: process.env.AZURE_US_API_KEY,
-  resourceName: process.env.AZURE_US_RESOURCE_NAME,
+  apiKey: process.env.AZURE_EMBEDDING_API_KEY,
+  resourceName: process.env.AZURE_EMBEDDING_RESOURCE_NAME,
 });
 
 export const generateEmbeddingAzure = async (

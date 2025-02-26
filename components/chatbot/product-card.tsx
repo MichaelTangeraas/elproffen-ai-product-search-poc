@@ -12,6 +12,7 @@ import {
 } from "~/components/ui/accordion";
 import { Button } from "~/components/ui/button";
 import { Card, CardContent } from "~/components/ui/card";
+import { useCart } from "~/lib/cart/cart-context";
 
 interface ProductCardProps {
   imageIds: string[];
@@ -31,6 +32,7 @@ export default function ProductCard({
   technicalDescription,
 }: ProductCardProps) {
   const [currentImage, setCurrentImage] = React.useState(0);
+  const { addToCart } = useCart();
 
   const images = imageIds.map((imageId) => `/api/product-image/${imageId}`);
 
@@ -44,6 +46,10 @@ export default function ProductCard({
     setCurrentImage((current) =>
       current === images.length - 1 ? 0 : current + 1
     );
+  };
+
+  const handleAddToCart = () => {
+    addToCart(productNumber);
   };
 
   return (
@@ -124,7 +130,10 @@ export default function ProductCard({
             </Accordion>
 
             {/* Add to Cart Button */}
-            <Button className="w-full sm:w-auto bg-button hover:bg-button hover:opacity-80">
+            <Button
+              className="w-full sm:w-auto bg-button hover:bg-button hover:opacity-80"
+              onClick={handleAddToCart}
+            >
               <ShoppingCart className="mr-2 h-4 w-4" />
               Legg i handlekurv
             </Button>
