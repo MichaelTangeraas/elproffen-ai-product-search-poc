@@ -13,8 +13,10 @@ export const queryProducts = async (embeddedQuery: number[]) => {
       productNumber: productEmbedding.productNumber,
       productName: productEmbedding.productName,
       manufacturerName: productEmbedding.manufacturerName,
+      productDescription: productEmbedding.productDescription,
       technicalDescription: productEmbedding.technicalDescription,
       rawContent: productEmbedding.rawContent,
+      imageIds: productEmbedding.imageIds,
       similarity,
     })
     .from(productEmbedding)

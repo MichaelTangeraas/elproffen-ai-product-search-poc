@@ -19,6 +19,7 @@ export type FeltVerdi = {
   Verdi: string | string[] | number[];
   Verditekst?: string;
   Maleenhet?: string;
+  Bilde?: string;
 };
 
 type Produkteier = {

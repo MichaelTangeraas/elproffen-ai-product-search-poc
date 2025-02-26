@@ -4,8 +4,8 @@ import { useChat } from "ai/react";
 import { StopButton } from "./stop-button";
 import { RegenerateButton } from "./regenerate-button";
 import { Weather } from "~/lib/ai/tools/display-weather/weather";
-import { ProductCard } from "./ProductCard";
 import { MemoizedMarkdown } from "./memoized-markdown";
+import ProductCard from "./product-card";
 
 export default function Page() {
   const {
@@ -56,7 +56,7 @@ export default function Page() {
               <div
                 className={`max-w-[80%] rounded-lg px-4 py-2 ${
                   message.role === "user"
-                    ? "bg-blue-600 text-white"
+                    ? "bg-button text-white"
                     : "bg-gray-100 text-gray-800"
                 }`}
               >
@@ -146,7 +146,7 @@ export default function Page() {
               <button
                 type="submit"
                 disabled={isLoading}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-6 rounded-lg transition-colors disabled:opacity-50"
+                className="bg-button hover:bg-button hover:opacity-80 text-white font-medium py-2 px-6 rounded-lg transition-colors disabled:opacity-50"
               >
                 Send
               </button>

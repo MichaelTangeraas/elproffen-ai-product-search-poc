@@ -32,17 +32,22 @@ export const createProductText = async (productData: EfoProduktdata) => {
     productData.Feltverdier.find((f) => f.Felt === "teknisk beskrivelse")
       ?.Verdi || "";
 
+  const bilde =
+    productData.Feltverdier.find((f) => f.Felt === "bilde")?.Verdi || "";
+
   // Build the product text
   const productText = `
-Produktnummer: ${productData.Produktnr}
-Produktnavn: ${productData.Varenavn}
-Produsent: ${productData.Produkteier.Navn}
+Produktnummer: ${productData.Produktnr},
+Produktnavn: ${productData.Varenavn},
+Produsent: ${productData.Produkteier.Navn},
+
+Bilde ID: ${bilde},
 
 Teknisk beskrivelse:
-${tekniskBeskrivelse}
+${tekniskBeskrivelse},
 
 Tekniske spesifikasjoner:
-${etim9Description}
+${etim9Description},
 `.trim();
 
   return productText;

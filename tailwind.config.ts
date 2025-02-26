@@ -50,6 +50,10 @@ export default {
           "4": "hsl(var(--chart-4))",
           "5": "hsl(var(--chart-5))",
         },
+        button: {
+          DEFAULT: "#B10932",
+          foreground: "#FEEFD2",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

@@ -67,7 +67,9 @@ export const syncProductEmbeddings = inngest.createFunction(
         productNumber: productNumber,
         productName: productSchema.productName,
         manufacturerName: productSchema.manufacturer,
+        productDescription: productSchema.productDescription,
         technicalDescription: productSchema.technicalDescription,
+        imageIds: productSchema.imageIds,
         rawContent: productText,
         embedding,
       });

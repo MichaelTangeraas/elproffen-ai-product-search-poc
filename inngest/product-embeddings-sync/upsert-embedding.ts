@@ -6,7 +6,9 @@ type UpsertEmbeddingParams = {
   productNumber: string;
   productName: string;
   manufacturerName: string;
+  productDescription: string;
   technicalDescription: string;
+  imageIds: string[];
   rawContent: string;
   embedding: number[];
 };
@@ -15,7 +17,9 @@ export const upsertEmbedding = async ({
   productNumber,
   productName,
   manufacturerName,
+  productDescription,
   technicalDescription,
+  imageIds,
   rawContent,
   embedding,
 }: UpsertEmbeddingParams) => {
@@ -23,7 +27,9 @@ export const upsertEmbedding = async ({
     productNumber,
     productName,
     manufacturerName,
+    productDescription,
     technicalDescription,
+    imageIds,
     rawContent,
     embedding,
   } satisfies ProductEmbeddingInsert;

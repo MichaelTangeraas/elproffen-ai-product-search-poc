@@ -1,5 +1,5 @@
 {
-  "id": "5995e227-e1c8-4495-8ef9-3ec64d72c1c1",
+  "id": "1adbe3f5-e2a7-452a-a6f9-a539aad58e7f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -43,11 +43,24 @@
           "primaryKey": false,
           "notNull": true
         },
+        "product_description": {
+          "name": "product_description",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
         "technical_description": {
           "name": "technical_description",
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "image_ids": {
+          "name": "image_ids",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "''"
         },
         "raw_content": {
           "name": "raw_content",
