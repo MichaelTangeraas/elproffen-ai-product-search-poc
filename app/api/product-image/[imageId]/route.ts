@@ -12,10 +12,11 @@ const efoHeaders = {
  */
 export async function GET(
   request: NextRequest,
-  { params }: { params: { imageId: string } }
+  context: { params: { imageId: string } }
 ) {
-  // Await the params object before destructuring
-  const imageId = await params.imageId;
+  // Await the entire params object before accessing its properties
+  const params = await context.params;
+  const imageId = params.imageId;
 
   if (!imageId) {
     return new NextResponse("Image ID is required", { status: 400 });

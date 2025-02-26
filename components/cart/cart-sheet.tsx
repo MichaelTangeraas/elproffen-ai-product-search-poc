@@ -11,12 +11,12 @@ import {
   SheetFooter,
 } from "~/components/ui/sheet";
 
-interface CartDrawerProps {
+interface CartSheetProps {
   isOpen: boolean;
   setIsOpen: (isOpen: boolean) => void;
 }
 
-export function CartDrawer({ isOpen, setIsOpen }: CartDrawerProps) {
+export function CartSheet({ isOpen, setIsOpen }: CartSheetProps) {
   const { cartItems, removeFromCart, clearCart } = useCart();
 
   return (
@@ -33,16 +33,18 @@ export function CartDrawer({ isOpen, setIsOpen }: CartDrawerProps) {
             <div className="space-y-4 mb-6">
               <h3 className="font-medium">Produkter i handlekurven:</h3>
               <ul className="space-y-2">
-                {cartItems.map((productId) => (
+                {cartItems.map((product) => (
                   <li
-                    key={productId}
+                    key={product.productId}
                     className="flex items-center justify-between rounded-md border p-2"
                   >
-                    <span className="text-sm">Produkt ID: {productId}</span>
+                    <span className="text-sm">
+                      {product.productName} (ID: {product.productId})
+                    </span>
                     <Button
                       variant="ghost"
                       size="sm"
-                      onClick={() => removeFromCart(productId)}
+                      onClick={() => removeFromCart(product.productId)}
                       className="h-6 w-6 p-0"
                     >
                       <X className="h-3 w-3" />

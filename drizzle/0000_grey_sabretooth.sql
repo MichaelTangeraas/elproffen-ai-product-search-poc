@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS "ProductEmbedding" (
 	"manufacturer_name" text NOT NULL,
 	"product_description" text NOT NULL,
 	"technical_description" text NOT NULL,
-	"image_ids" text DEFAULT '' NOT NULL,
+	"image_ids" text[],
 	"raw_content" text NOT NULL,
 	"embedding" vector(1536) NOT NULL,
 	"product_id" integer,

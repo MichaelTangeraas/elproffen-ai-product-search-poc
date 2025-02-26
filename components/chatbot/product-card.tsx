@@ -49,7 +49,7 @@ export default function ProductCard({
   };
 
   const handleAddToCart = () => {
-    addToCart(productNumber);
+    addToCart(productNumber, productName);
   };
 
   return (

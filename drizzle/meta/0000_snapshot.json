@@ -1,5 +1,5 @@
 {
-  "id": "1adbe3f5-e2a7-452a-a6f9-a539aad58e7f",
+  "id": "d4565f0f-eec9-4e59-8e8c-6109baa698a7",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -57,10 +57,9 @@
         },
         "image_ids": {
           "name": "image_ids",
-          "type": "text",
+          "type": "text[]",
           "primaryKey": false,
-          "notNull": true,
-          "default": "''"
+          "notNull": false
         },
         "raw_content": {
           "name": "raw_content",

@@ -4,7 +4,7 @@ import { useState } from "react";
 import { ShoppingCart } from "lucide-react";
 import { Button } from "~/components/ui/button";
 import { useCart } from "~/lib/cart/cart-context";
-import { CartDrawer } from "~/components/cart/cart-drawer";
+import { CartSheet } from "~/components/cart/cart-sheet";
 
 export function CartButton() {
   const { cartItems } = useCart();
@@ -25,7 +25,7 @@ export function CartButton() {
           </span>
         )}
       </Button>
-      <CartDrawer isOpen={isOpen} setIsOpen={setIsOpen} />
+      <CartSheet isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   );
 }
