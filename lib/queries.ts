@@ -2,7 +2,10 @@ import { sql, cosineDistance, gt, desc } from "drizzle-orm";
 import { db } from "~/db";
 import { productEmbedding } from "~/db/schema";
 
-export const queryProducts = async (embeddedQuery: number[]) => {
+export const queryProducts = async (
+  embeddedQuery: number[],
+  options = { minSimilarity: 0.3, maxResults: 20 }
+) => {
   const similarity = sql`1 - (${cosineDistance(
     productEmbedding.embedding,
     embeddedQuery
@@ -20,7 +23,7 @@ export const queryProducts = async (embeddedQuery: number[]) => {
       similarity,
     })
     .from(productEmbedding)
-    .where(gt(similarity, 0.4))
+    .where(gt(similarity, options.minSimilarity))
     .orderBy((t) => desc(t.similarity))
-    .limit(4);
+    .limit(options.maxResults);
 };

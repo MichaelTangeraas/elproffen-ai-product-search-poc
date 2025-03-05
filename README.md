@@ -8,6 +8,8 @@
 - [ ] Update RAG architecture
 - [ ] Update chatbot max steps structure
 - [ ] Update chatbot prompt
+- [ ] Update search for product number
+- [ ] Add data collection for search queries and results (relevanceScore and similarityScore)
 
 ## Run Inngest Dev Server
 
