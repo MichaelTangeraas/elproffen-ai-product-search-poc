@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 interface RegenerateButtonProps {
   onRegenerate: (e: React.MouseEvent) => void;

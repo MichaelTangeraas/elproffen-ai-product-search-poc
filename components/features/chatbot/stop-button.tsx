@@ -1,4 +1,4 @@
-import { Button } from "../ui/button";
+import { Button } from "../../ui/button";
 
 interface StopButtonProps {
   onStop: (e: React.MouseEvent) => void;

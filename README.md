@@ -4,11 +4,11 @@
 
 ## Todo
 
-- [ ] Update tool prompt
-- [ ] Update RAG architecture
-- [ ] Update chatbot max steps structure
-- [ ] Update chatbot prompt
-- [ ] Update search for product number
+- [x] Update tool prompt
+- [x] Update RAG architecture
+- [x] Update chatbot max steps structure
+- [x] Update chatbot prompt
+- [x] Update search for product number
 - [ ] Add data collection for search queries and results (relevanceScore and similarityScore)
 
 ## Run Inngest Dev Server

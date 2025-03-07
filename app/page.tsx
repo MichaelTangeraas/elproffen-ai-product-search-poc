@@ -1,5 +1,5 @@
-import Chatbot from "~/components/chatbot/chatbot-interface";
-import { CartButton } from "~/components/cart/cart-button";
+import Chatbot from "~/components/features/chatbot/chatbot-interface";
+import { CartButton } from "~/components/features/cart/cart-button";
 
 export default function Home() {
   return (

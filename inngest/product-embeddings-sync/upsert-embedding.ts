@@ -1,6 +1,6 @@
-import { db } from "~/db";
-import { productEmbedding } from "~/db/schema";
-import { ProductEmbeddingInsert } from "~/db/types";
+import { db } from "~/lib/db";
+import { productEmbedding } from "~/lib/db/schema";
+import { ProductEmbeddingInsert } from "~/lib/db/types";
 
 type UpsertEmbeddingParams = {
   productNumber: string;

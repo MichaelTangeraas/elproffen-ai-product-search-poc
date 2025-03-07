@@ -1,6 +1,6 @@
 import { sql, cosineDistance, gt, desc, eq } from "drizzle-orm";
-import { db } from "~/db";
-import { productEmbedding } from "~/db/schema";
+import { db } from "~/lib/db";
+import { productEmbedding } from "~/lib/db/schema";
 
 export const queryProducts = async (
   embeddedQuery: number[],
