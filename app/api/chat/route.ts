@@ -12,7 +12,7 @@ export async function POST(req: Request) {
     system: systemPrompt,
     temperature: 0.7,
     messages,
-    maxSteps: 1,
+    maxSteps: 2,
     tools: {
       searchForProducts,
       weatherTool,

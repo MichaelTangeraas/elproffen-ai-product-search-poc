@@ -17,7 +17,7 @@ export default function Page() {
     stop,
     reload,
   } = useChat({
-    maxSteps: 1,
+    maxSteps: 2,
     experimental_throttle: 50,
   });
 
@@ -117,7 +117,7 @@ export default function Page() {
                             {toolName === "weatherTool" ? (
                               <span>Laster inn værdata...</span>
                             ) : toolName === "searchForProducts" ? (
-                              <span>Laster inn produkt...</span>
+                              <span>Søker i produktdatabasen...</span>
                             ) : (
                               <span>Laster inn data...</span>
                             )}

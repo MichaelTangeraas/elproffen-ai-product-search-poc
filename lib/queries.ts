@@ -1,4 +1,4 @@
-import { sql, cosineDistance, gt, desc } from "drizzle-orm";
+import { sql, cosineDistance, gt, desc, eq } from "drizzle-orm";
 import { db } from "~/db";
 import { productEmbedding } from "~/db/schema";
 
@@ -26,4 +26,19 @@ export const queryProducts = async (
     .where(gt(similarity, options.minSimilarity))
     .orderBy((t) => desc(t.similarity))
     .limit(options.maxResults);
+};
+
+export const queryProductByProductNumber = async (productNumber: string) => {
+  return db
+    .select({
+      productNumber: productEmbedding.productNumber,
+      productName: productEmbedding.productName,
+      manufacturerName: productEmbedding.manufacturerName,
+      productDescription: productEmbedding.productDescription,
+      technicalDescription: productEmbedding.technicalDescription,
+      rawContent: productEmbedding.rawContent,
+      imageIds: productEmbedding.imageIds,
+    })
+    .from(productEmbedding)
+    .where(eq(productEmbedding.productNumber, productNumber));
 };
