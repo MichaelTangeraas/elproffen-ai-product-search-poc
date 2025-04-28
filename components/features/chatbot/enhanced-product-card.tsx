@@ -134,7 +134,7 @@ export default function EnhancedProductCard({
           {/* Right side - Product Information */}
           <div className="p-6 flex flex-col">
             <div className="mb-2">
-              <div className="text-sm text-gray-500 mb-1">Kampanje</div>
+              <div className="text-sm text-gray-500 mb-1">Lorem ipsum</div>
               <h2 className="text-xl font-bold">{productName}</h2>
               <div className="flex flex-col text-sm text-gray-500 mt-1">
                 <span>Produktnr.: {productNumber}</span>

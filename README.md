@@ -10,6 +10,7 @@
 - [x] Update chatbot prompt
 - [x] Update search for product number
 - [ ] Add data collection for search queries and results (relevanceScore and similarityScore)
+- [ ] Fix product number search
 
 ## Run Inngest Dev Server
 
